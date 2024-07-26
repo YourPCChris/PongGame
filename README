@@ -1,0 +1,6 @@
+This Will be the classic game Pong!
+
+The game works with two players each controlling a rectangular slider block which they will use to stop a ball from hitting their wall. You get a point by getting the ball to hit the other player's wall.
+
+
+This will be done in C++
