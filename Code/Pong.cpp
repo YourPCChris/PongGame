@@ -26,11 +26,30 @@ class Player
 	public:
 		float
 			width = 10
-			,hieght = 100
+			,height = 100
 			,x
 			,y
 			,speed = 300
 			,score = 0;
+
+		//Paddles  Movement Up & Down
+		void Up()
+		{
+			y -= speed * GetFrameTime();
+		}
+		void Down()
+		{
+			y += speed * GetFrameTime();
+		}
+		//stopping paddle from going off the screen
+		void Stop()
+		{
+			if (y < GetScreenHeight() - 100){
+				y += 5;
+			}else if (y > 0){
+				y -= 5;
+			}
+		}
 };
 
 class ScoreBoard
@@ -53,15 +72,61 @@ int main()
 	Player P2; P2.x = GetScreenWidth() - 50; P2.y = (GetScreenHeight() / 2) - P2.width;
 
 
+	// Main Loop
 	while (!WindowShouldClose())
 	{
+		//Initial Ball Movement 
+		ball.x += ball.speedX * GetFrameTime();
+		ball.y += ball.speedY * GetFrameTime();
+	
+		//Checking stopping ball from going off screen
+		if (ball.x < 0){
+			ball.speedX *= (-1);
+		}else if (ball.x > GetScreenWidth()){
+			ball.speedX *= (-1);
+		}
+		if (ball.y < 0){
+			ball.speedY *= (-1);
+		}else if (ball.y > GetScreenHeight()){
+			ball.speedY *= (-1);
+		}
+
+		//Paddle movement P1 with W&S and P2 with Up&Down Keys
+		//Player One
+		if (IsKeyDown(KEY_W)){
+				P1.Up();
+		}else if (IsKeyDown(KEY_S)){
+			P1.Down();
+		}
+		//Player Two
+		if (IsKeyDown(KEY_UP)){
+			P2.Up();
+		}else if (IsKeyDown(KEY_DOWN)){
+			P2.Down();
+		}
+
+		//Stopping Paddle from going off screen
+		//Player One
+		if (P1.y > GetScreenHeight() - P1.height){
+			P1.Stop();
+		}else if (P1.y < 0){
+			P1.Stop();
+		}
+		//Player Two
+		if (P2.y > GetScreenHeight() - P2.height){
+			P2.Stop();
+		}else if (P2.y < 0){
+			P2.Stop();
+		}
+		
+		//Drawing Window 
 		BeginDrawing();
 			ClearBackground(BLACK);
 			DrawFPS(10,10);
 
 			DrawCircle(ball.x, ball.y, ball.rad, RED);
-			DrawRectangle(P1.x, P1.y, P1.width, P1.hieght, BLUE);
-			DrawRectangle(P2.x, P2.y, P2.width, P2.hieght, BLUE);
+			DrawRectangle(P1.x, P1.y, P1.width, P1.height, BLUE);
+			DrawRectangle(P2.x, P2.y, P2.width, P2.height, BLUE);
 		EndDrawing();
 	}
 	CloseWindow();
