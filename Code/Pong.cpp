@@ -79,6 +79,8 @@ int main()
 	Ball ball; ball.y = GetScreenHeight() / 2; ball.x = GetScreenWidth() / 2;
 	Player P1; P1.x = 50; P1.y = (GetScreenHeight() / 2) - P1.width;
 	Player P2; P2.x = GetScreenWidth() - 50; P2.y = (GetScreenHeight() / 2) - P2.width;
+	Player leftWall; leftWall.x = 0; leftWall.y = 0; leftWall.height = GetScreenHeight(); 
+	Player rightWall; rightWall.x = GetScreenWidth() - rightWall.width; rightWall.y = 0; rightWall.height = GetScreenHeight(); 
 
 
 	// Main Loop
@@ -143,6 +145,20 @@ int main()
 				ball.speedX *= (-1);
 			}
 		}
+		//Left Wall
+		if (CheckCollisionCircleRec(Vector2{ball.x, ball.y}, ball.rad,
+					leftWall.GetRect())){
+			ball.x = (GetScreenWidth() / 2);
+			ball.y = (GetScreenHeight() / 2);
+			P2.score++;
+		}
+		//Right Wall
+		if (CheckCollisionCircleRec(Vector2{ball.x, ball.y}, ball.rad,
+					rightWall.GetRect())){
+			ball.x = (GetScreenWidth() / 2);
+			ball.y = (GetScreenHeight() / 2);
+			P1.score++;
+		}
 		//Drawing Window 
 		BeginDrawing();
 			ClearBackground(BLACK);
@@ -151,6 +167,9 @@ int main()
 			DrawCircle(ball.x, ball.y, ball.rad, RED);
 			DrawRectangle(P1.x, P1.y, P1.width, P1.height, BLUE);
 			DrawRectangle(P2.x, P2.y, P2.width, P2.height, BLUE);
+			DrawRectangle(leftWall.x, leftWall.y, leftWall.width, leftWall.height, WHITE);
+			DrawRectangle(rightWall.x, rightWall.y, rightWall.width, rightWall.height, WHITE);
+			
 		EndDrawing();
 	}
 	CloseWindow();
