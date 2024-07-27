@@ -4,3 +4,17 @@ The game works with two players each controlling a rectangular slider block whic
 
 
 This will be done in C++
+
+
+
+		***Controls***
+
+	Player One
+	
+Up - 'w'
+Down - 's'
+
+	Player Two
+
+Up - 'Up Arrow'
+Down - 'Down Arrow'
