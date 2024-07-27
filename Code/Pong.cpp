@@ -50,6 +50,15 @@ class Player
 				y -= 5;
 			}
 		}
+		//Retuning Rectangle
+		Rectangle GetRect()
+		{
+			return Rectangle{x - width / 2, y - height / 2, width, height};
+		} 
+		void Draw()
+		{
+			DrawRectangleRec(GetRect(), BLUE);
+		}
 };
 
 class ScoreBoard
@@ -119,6 +128,21 @@ int main()
 			P2.Stop();
 		}
 		
+		//Checking Collisions 
+		//Paddle One
+		if (CheckCollisionCircleRec(Vector2{ball.x, ball.y}, ball.rad,
+					P1.GetRect())){
+			if (ball.speedX < 0){
+				ball.speedX *= (-1);
+			}
+		}
+		//Paddle two
+		if (CheckCollisionCircleRec(Vector2{ball.x, ball.y}, ball.rad, 
+					P2.GetRect())){
+			if (ball.speedX > 0){
+				ball.speedX *= (-1);
+			}
+		}
 		//Drawing Window 
 		BeginDrawing();
 			ClearBackground(BLACK);
