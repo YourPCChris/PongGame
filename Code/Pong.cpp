@@ -5,6 +5,7 @@
 
 
 #include "raylib.h"
+#include <iostream>
 
 
 using namespace std;
@@ -29,8 +30,8 @@ class Player
 			,height = 100
 			,x
 			,y
-			,speed = 300
-			,score = 0;
+			,speed = 300;
+		int score = 0;
 
 		//Paddles  Movement Up & Down
 		void Up()
@@ -59,13 +60,6 @@ class Player
 		{
 			DrawRectangleRec(GetRect(), BLUE);
 		}
-};
-
-class ScoreBoard
-{
-	int 
-		left = 0
-		,right = 0;
 };
 
 
@@ -169,6 +163,7 @@ int main()
 			DrawRectangle(P2.x, P2.y, P2.width, P2.height, BLUE);
 			DrawRectangle(leftWall.x, leftWall.y, leftWall.width, leftWall.height, WHITE);
 			DrawRectangle(rightWall.x, rightWall.y, rightWall.width, rightWall.height, WHITE);
+			DrawText(TextFormat("%i : %i",P1.score, P2.score), GetScreenWidth() / 2, 10, 20, WHITE);
 			
 		EndDrawing();
 	}
